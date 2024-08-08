@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:TodoApp.ViewModels"
+             x:Class="TodoApp.MainPage">
+
+    <ContentPage.BindingContext>
+        <viewmodels:TodoViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout>
+        
+        <!-- Entry para agregar mandar el nombre del Task -->
+        <Entry Placeholder="Enter task name" Text="{Binding TaskName}" />
+
+        <!-- Boton para agregar tasks -->
+        <Button 
+            Text="Add Task"
+            Margin="50"
+            BackgroundColor="#2b23ff"
+            TextColor="White"
+            Command="{Binding AddTaskCommand}"/>
+
+
+        <!-- Search Bar -->
+        <SearchBar 
+            Placeholder="Search Task..."
+            Margin="10"
+            Text="{Binding SearchText}"/>
+
+
+        <!-- Coleccion de vistas -->
+
+        <CollectionView ItemsSource="{Binding Tasks}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItem Text="Delete"
+                                       BackgroundColor="#f92c2c"
+                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TodoViewModel}}, Path=RemoveTaskCommand}"
+                                       CommandParameter="{Binding .}" />
+                            <SwipeItem Text="Change Status"
+                                       BackgroundColor="#3fb2ff"
+                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TodoViewModel}}, Path=EditTaskCommand}"
+                                       CommandParameter="{Binding .}" />
+                            </SwipeView.RightItems>
+
+                        <Grid Padding="10" RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto, Auto">
+
+                            <!-- Nombre de la task -->
+                            <Label Grid.Row="0" Grid.Column="0"
+                                    Text="{Binding Name}"
+                                    FontSize="20"
+                                    VerticalOptions="Center" />
+
+                            <!-- Fecha de creacion de la task -->
+                            <Label Grid.Row="1" Grid.Column="0"
+                                    Text="{Binding CreatedAt, StringFormat='Created on: {0:MM/dd/yyyy HH:mm}'}"
+                                    FontSize="14"
+                                    TextColor="Gray"
+                                    VerticalOptions="Center" />
+
+                            <!-- Estado de la task -->
+                            <Frame Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"
+                                    BackgroundColor="{Binding StatusColor}"
+                                    Padding="5"
+                                    CornerRadius="15"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center">
+                                <Label Text="{Binding Status}"
+                                        TextColor="White"
+                                        FontSize="14" />
+                            </Frame>
+                            <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" HorizontalOptions="End" VerticalOptions="Center" Padding="5">></Label>
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
+        
+        </VerticalStackLayout>
+
+
+</ContentPage>
+
+
