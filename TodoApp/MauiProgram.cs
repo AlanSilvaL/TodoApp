@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using TodoApp.Data;
 //using TodoApp.DataAccess;
 namespace TodoApp
 {
@@ -13,18 +14,21 @@ namespace TodoApp
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
-
-            //var dbContext = new TaskDbContext();
-            //dbContext.Database.EnsureCreated();
-            //dbContext.Dispose();
+                })
+                .ConfigureServices();
 
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
+        }
+
+        public static MauiAppBuilder ConfigureServices(this MauiAppBuilder builder)
+        {
+            builder.Services.AddSingleton<ITodoDatabase, TodoDatabase> ();
+            return builder;
         }
     }
 }

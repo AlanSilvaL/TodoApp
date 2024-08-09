@@ -1042,3 +1042,4 @@ C:\Users\bryan\source\repos\TodoApp\TodoApp\obj\Debug\net8.0-android\android\ass
 C:\Users\bryan\source\repos\TodoApp\TodoApp\obj\Debug\net8.0-android\android\assets\SQLitePCLRaw.core.dll
 C:\Users\bryan\source\repos\TodoApp\TodoApp\obj\Debug\net8.0-android\android\assets\SQLitePCLRaw.lib.e_sqlite3.android.dll
 C:\Users\bryan\source\repos\TodoApp\TodoApp\obj\Debug\net8.0-android\android\assets\SQLitePCLRaw.provider.e_sqlite3.dll
+C:\Users\bryan\source\repos\TodoApp\TodoApp\obj\Debug\net8.0-android\TodoApp.sourcelink.json

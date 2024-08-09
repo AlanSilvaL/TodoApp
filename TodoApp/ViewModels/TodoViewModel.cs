@@ -12,11 +12,12 @@ namespace TodoApp.ViewModels
 {
     public class TodoViewModel : INotifyPropertyChanged
     {
+        private readonly ITodoDatabase _database;
+
         private ObservableCollection<TodoItem> _tasks;
         private ObservableCollection<TodoItem> _allTasks;
         private string _taskName;
         private string _searchText;
-        private TodoDatabase _database;
 
         public ObservableCollection<TodoItem> Tasks
         {
@@ -64,18 +65,20 @@ namespace TodoApp.ViewModels
 
         public TodoViewModel()
         {
+            _database = IPlatformApplication.Current?.Services.GetService<ITodoDatabase>();
             _allTasks = new ObservableCollection<TodoItem>();
             Tasks = new ObservableCollection<TodoItem>();
             AddTaskCommand = new Command(async () => await AddTask());
             RemoveTaskCommand = new Command<TodoItem>(async (task) => await RemoveTask(task));
             EditTaskCommand = new Command<TodoItem>(async (task) => await EditTask(task));
-        }
-
-        public void Initialize(TodoDatabase database)
-        {
-            _database = database;
             LoadTasks();
         }
+
+        //public void Initialize(TodoDatabase database)
+        //{
+        //    _database = database;
+        //    LoadTasks();
+        //}
 
         private async void LoadTasks()
         {

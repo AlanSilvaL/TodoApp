@@ -7,24 +7,14 @@ namespace TodoApp
 {
     public partial class App : Application
     {
-        static TodoDatabase database;
+        private readonly ITodoDatabase database;
 
         public App()
         {
             InitializeComponent();
+            database = IPlatformApplication.Current?.Services.GetService<ITodoDatabase>();
+            database.InitializeDataBase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TodoSQLite.db3"));
             MainPage = new MainPage();
-        }
-
-        public static TodoDatabase Database
-        {
-            get
-            {
-                if (database == null)
-                {
-                    database = new TodoDatabase(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TodoSQLite.db3"));
-                }
-                return database;
-            }
         }
     }
 }

@@ -5,11 +5,15 @@ using TodoApp.Models;
 
 namespace TodoApp.Data
 {
-    public class TodoDatabase
+    public class TodoDatabase : ITodoDatabase
     {
-        readonly SQLiteAsyncConnection database;
+        private SQLiteAsyncConnection database;
 
-        public TodoDatabase(string dbPath)
+        public TodoDatabase()
+        {
+        }
+
+        public void InitializeDataBase(string dbPath)
         {
             database = new SQLiteAsyncConnection(dbPath);
             database.CreateTableAsync<TodoItem>().Wait();

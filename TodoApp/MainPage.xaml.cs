@@ -7,7 +7,7 @@ namespace TodoApp
         {
             InitializeComponent();
             var viewModel = new TodoViewModel();
-            viewModel.Initialize(App.Database);
+            //viewModel.Initialize(App.Database);
             BindingContext = viewModel;
         }
     }
